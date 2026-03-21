@@ -25,7 +25,7 @@ const UpdateClient = async (req: Request, res: Response, next: NextFunction) => 
     const response: TApiResponse<Partial<TClient>> = {
       success: true,
       message: 'Profile updated successfully',
-      data: updatedClient as any,
+      data: updatedClient as TClient,
     };
 
     return res.status(200).json(response);

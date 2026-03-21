@@ -70,6 +70,25 @@ yarn build && yarn start  # Production mode
 The API will be accessible at `http://localhost:3000`.
 Swagger UI is available at `http://localhost:3000/api-docs`.
 
+## Deployment to Vercel
+
+This project is configured for deployment as Vercel Serverless Functions.
+
+### 1. Vercel Configuration
+The project includes a `vercel.json` file and an `api/index.ts` entry point that exports the Express app.
+
+### 2. Environment Variables
+You must set the following environment variables in your Vercel Project Settings:
+- `NODE_ENV`: `production`
+- `MAIN_DATABASE_URI`: Your production PostgreSQL connection string.
+- `COOKIE_SECRET`: A secure random string.
+- `JWT_SECRET`: A secure random string.
+- `DB_PORT`: `5432` (or your DB port).
+
+### 3. Deploy
+- **Via Vercel CLI**: Run `vercel` in the root directory.
+- **Via GitHub**: Connect your repository to Vercel. It will automatically detect the configuration and deploy.
+
 ## API Endpoints Summary
 
 ### Auth
