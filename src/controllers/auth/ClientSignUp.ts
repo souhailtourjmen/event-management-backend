@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import { ClientRepo } from '../../typeorm/data-source';
 import CustomError from '../../utils/CustomError';
 import { TApiResponse } from '../../types/types.d';
-
+import jwt from 'jsonwebtoken';
 import validateSignUpForm from '../../utils/validateSignUp';
 
 const ClientSignUp = async (req: Request, res: Response, next: NextFunction) => {
@@ -21,7 +21,6 @@ const ClientSignUp = async (req: Request, res: Response, next: NextFunction) => 
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
-
     const client = ClientRepo.create({
       fullName,
       email,
@@ -30,6 +29,11 @@ const ClientSignUp = async (req: Request, res: Response, next: NextFunction) => 
     });
 
     await ClientRepo.save(client);
+    const { JWT_SECRET, JWT_EXPIRES_IN } = process.env;
+    
+    const token = jwt.sign({ id: client.id }, JWT_SECRET!, {
+          expiresIn: JWT_EXPIRES_IN || '1d',
+        });
 
     const response: TApiResponse = {
       success: true,
@@ -38,6 +42,7 @@ const ClientSignUp = async (req: Request, res: Response, next: NextFunction) => 
         id: client.id,
         fullName: client.fullName,
         email: client.email,
+        token
       },
     };
 
