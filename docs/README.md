@@ -44,4 +44,4 @@ If you encounter IPv6 timeouts with Neon Postgres on certain networks:
 
 The interactive documentation is automatically generated from JSDoc comments in the `src/routes/v1/` directory. If you add new routes, ensure you document them using `@swagger` tags.
 
-Access at: `http://localhost:3000/api-docs`
+Access at: `https://test-technique-backend.onrender.com/api-docs/`
